@@ -14,3 +14,8 @@ export interface Planets {
   terrain: string;
   url: string;
 }
+
+export interface GlobalStatePlanets {
+  apiResults: Planets[];
+  filterPlanets: (text: string) => void,
+}
