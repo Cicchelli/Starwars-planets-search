@@ -1,39 +1,53 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import './App.css';
 import Table from './Components/Table';
 import FetchApi from './utils/FetchApi';
 import GlobalContext from './context/GlobalContext';
-import { Planets } from './Types';
+import { DataFiltersType, Planets } from './Types';
 
 function App() {
   const [apiResults, setApiResults] = useState<Planets[]>([]);
-  const [backupResultsApi, setBackupResultsApi] = useState<Planets[]>([]);
+  const [backupReApi, setbackupReApi] = useState<Planets[]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    async function fetchData() {
+    async function getData() {
       setLoading(true);
-      try {
-        const results = await FetchApi('https://swapi.dev/api/planets');
-        setApiResults(results);
-        setBackupResultsApi(results);
-      } catch (error) {
-        console.error('Erro ao buscar dados:', error);
-      }
+      const results = await FetchApi('https://swapi.dev/api/planets');
+      setApiResults(results);
+      setbackupReApi(results);
       setLoading(false);
     }
-
-    fetchData();
+    getData();
   }, []);
 
-  function filterPlanets(text: string) {
+  function filterResultsByText(text: string) {
     if (text.length > 0) {
-      const filter = apiResults.filter(({ name }) => name.toLowerCase().includes(text));
-      setApiResults(filter);
+      const Results = backupReApi.filter(({ name }) => name.toLowerCase().includes(text));
+      setApiResults(Results);
+    } else {
+      setApiResults(backupReApi);
     }
-    if (!text) {
-      setApiResults(backupResultsApi);
-    }
+  }
+
+  function filterResultsByValue(filters: DataFiltersType) {
+    const filteredResults = apiResults.filter((result: any) => {
+      const columnValue = Number(result[filters.column]);
+      const filterValue = Number(filters.value);
+
+      if (filters.filter === 'maior que') {
+        return columnValue > filterValue;
+      }
+      if (filters.filter === 'menor que') {
+        return columnValue < filterValue;
+      }
+      if (filters.filter === 'igual a') {
+        return columnValue === filterValue;
+      }
+      return true; // Return true for unhandled cases
+    });
+
+    setApiResults(filteredResults);
   }
 
   if (loading) {
@@ -41,7 +55,11 @@ function App() {
   }
 
   return (
-    <GlobalContext.Provider value={ { apiResults, filterPlanets } }>
+    <GlobalContext.Provider
+      value={
+       { apiResults, filterResultsByText, filterResultsByValue }
+}
+    >
       <Table />
     </GlobalContext.Provider>
   );

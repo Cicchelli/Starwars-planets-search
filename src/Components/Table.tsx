@@ -1,24 +1,14 @@
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import { Planets } from '../Types';
 import GlobalContext from '../context/GlobalContext';
+import Forms from './Forms';
 
 export default function Table() {
-  const { apiResults, filterPlanets } = useContext(GlobalContext);
-  const [search, setSearch] = useState('');
-
-  function handleChange({ target }: React.ChangeEvent<HTMLInputElement>) {
-    setSearch(target.value);
-    filterPlanets(target.value);
-  }
+  const { apiResults } = useContext(GlobalContext);
 
   return (
     <>
-      <input
-        data-testid="name-filter"
-        type="text"
-        value={ search }
-        onChange={ handleChange }
-      />
+      <Forms />
       <table>
         <thead>
           <tr>
