@@ -12,7 +12,7 @@ function App() {
 
   useEffect(() => {
     async function getData() {
-      setLoading(true);
+      // setLoading(true);
       const results = await FetchApi('https://swapi.dev/api/planets');
       setApiResults(results);
       setbackupReApi(results);
