@@ -50,9 +50,9 @@ function App() {
     setApiResults(filteredResults);
   }
 
-  if (loading) {
-    return <h1>Carregando</h1>;
-  }
+  // if (loading) {
+  //   // return <h1>Carregando</h1>;
+  // }
 
   return (
     <GlobalContext.Provider

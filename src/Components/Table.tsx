@@ -30,7 +30,8 @@ export default function Table() {
         <tbody>
           {apiResults.map((result: Planets) => (
             <tr key={ result.name }>
-              <td>{result.name}</td>
+              {/* <td>{result.name}</td> */}
+              <td data-testid="planet-name">{result.name}</td>
               <td>{result.rotation_period}</td>
               <td>{result.orbital_period}</td>
               <td>{result.diameter}</td>

@@ -17,8 +17,8 @@ export interface Planets {
 
 export interface GlobalStatePlanets {
   apiResults: Planets[];
-  filterResultsByText: (text: string) => void,
-  filterResultsByValue: (filters: DataFiltersType) => void
+  filterResultsByText: (text: string) => void, // filPlanets
+  filterResultsByValue: (filters: DataFiltersType) => void // modificar filterPerFilter
 }
 export interface DataFiltersType {
   column: string;
