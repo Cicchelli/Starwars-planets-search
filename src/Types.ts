@@ -6,8 +6,8 @@ export interface Planets {
   films: string[];
   gravity: string;
   name: string;
-  orbital_period: number;
-  population: number;
+  orbital_period: number | string;
+  population: number | string;
   residents?: string[];
   rotation_period: string;
   surface_water: string;
@@ -19,6 +19,7 @@ export interface GlobalStatePlanets {
   apiResults: Planets[];
   filterResultsByText: (text: string) => void, // filPlanets
   filterResultsByValue: (filters: DataFiltersType) => void // modificar filterPerFilter
+  loading:boolean
 }
 export interface DataFiltersType {
   column: string;

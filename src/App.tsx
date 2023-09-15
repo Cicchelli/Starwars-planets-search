@@ -57,7 +57,7 @@ function App() {
   return (
     <GlobalContext.Provider
       value={
-       { apiResults, filterResultsByText, filterResultsByValue }
+       { apiResults, filterResultsByText, filterResultsByValue, loading }
 }
     >
       <Table />

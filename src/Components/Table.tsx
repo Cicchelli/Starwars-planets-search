@@ -4,7 +4,7 @@ import GlobalContext from '../context/GlobalContext';
 import Forms from './Forms';
 
 export default function Table() {
-  const { apiResults } = useContext(GlobalContext);
+  const { apiResults, loading } = useContext(GlobalContext);
 
   return (
     <>
@@ -28,7 +28,7 @@ export default function Table() {
           </tr>
         </thead>
         <tbody>
-          {apiResults.map((result: Planets) => (
+          {loading ? <h1>loading</h1> : apiResults.map((result: Planets) => (
             <tr key={ result.name }>
               {/* <td>{result.name}</td> */}
               <td data-testid="planet-name">{result.name}</td>
