@@ -77,7 +77,7 @@ test('Teste geral', () => {
  expect(terrain).toBeInTheDocument();
 } )
 
-test.only('Verifica os campos existem', () => {
+test('Verifica os campos existem', () => {
   render(<App />);
   const search = screen.getByTestId('name-filter');
   const inpNumber = screen.getByTestId('value-filter')
