@@ -89,7 +89,6 @@ test.only('Verifica os campos existem', () => {
   userEvent.type(inpNumber, '200000');
   userEvent.click(buttonFilter);
   // const filter = screen.getByTestId('filter');
-
   // expect(filter).toHaveTextContent('population')
   // expect(filter).toHaveTextContent('maior que')
   // expect(filter).toHaveTextContent('200000')
