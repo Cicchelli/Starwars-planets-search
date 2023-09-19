@@ -10,17 +10,34 @@ const dataFilters = {
   filter: 'maior que',
   value: 0,
 };
+const initialState = {
+  ordenar: 'ASC',
+  filter: 'population',
+};
+
 export default function Forms() {
-  const { filterResultsByText, filterResultsByValue } = useContext(GlobalContext);
+  const {
+    filterResultsByText,
+    filterResultsByValue,
+    apiResults,
+    setApiResults } = useContext(GlobalContext);
   const [search, setSearch] = useState('');
   const [choiceFilters, setChoiceFilters] = useState<DataFiltersType>(dataFilters);
   const [multipleFilters, setMultipleFilters] = useState<DataFiltersType[]>([]);
   const [showFilter, setShowFilter] = useState(false);
   const [options, setOptions] = useState(arrayOptions);
+  const [formTwo, setFormTwo] = useState(initialState);
 
   function handleChange({ target }: React.ChangeEvent<HTMLInputElement>) {
     setSearch(target.value);
     filterResultsByText(target.value);
+  }
+  function handleOrder({ target }:
+  React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
+    setFormTwo({
+      ...formTwo,
+      [target.name]: target.value,
+    });
   }
   function handleFilters({ target }: React.ChangeEvent<HTMLInputElement |
   HTMLSelectElement>) {
@@ -30,7 +47,7 @@ export default function Forms() {
       [name]: value,
     });
   }
-  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+  function handleSubmit(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
     event.preventDefault();
     setShowFilter(true);
     filterResultsByValue(choiceFilters);
@@ -47,10 +64,29 @@ export default function Forms() {
       setOptions(newOptions);
     }
   }
+  function ordenate(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
+    event.preventDefault();
+
+    const saveOrder = formTwo.filter;
+    const sortOrder = formTwo.ordenar === 'DESC' ? -1 : 1;
+
+    const sortedResults = apiResults.sort((a, b) => {
+      const aValue = a[saveOrder];
+      const bValue = b[saveOrder];
+
+      if (aValue === 'unknown' || bValue === 'unknown') {
+        return aValue === 'unknown' ? 1 : -1; // Coloca 'unknown' por último
+      }
+
+      return (Number(aValue) - Number(bValue)) * sortOrder;
+    });
+
+    setApiResults([...sortedResults]);
+  }
 
   return (
     <>
-      <form onSubmit={ handleSubmit }>
+      <form>
         <input
           data-testid="name-filter"
           type="text"
@@ -82,6 +118,7 @@ export default function Forms() {
           <option value="menor que">menor que</option>
           <option value="igual a">igual a</option>
         </select>
+
         <input
           type="number"
           data-testid="value-filter"
@@ -89,8 +126,41 @@ export default function Forms() {
           defaultValue={ choiceFilters.value }
           onChange={ handleFilters }
         />
-        <button data-testid="button-filter">Filter</button>
+        <button onClick={ handleSubmit } data-testid="button-filter">Filter</button>
       </form>
+      <select
+        data-testid="column-sort"
+        defaultValue={ choiceFilters.filter }
+        onChange={ (event) => handleOrder(event) }
+        name="filter"
+      >
+        <option value="population">population</option>
+        <option value="orbital_period">orbital_period</option>
+        <option value="diameter">diameter</option>
+        <option value="rotation_period">rotation_period</option>
+        <option value="surface_water">surface_water</option>
+      </select>
+      <label>
+        <input
+          type="radio"
+          data-testid="column-sort-input-asc"
+          value="ASC"
+          name="ordenar"
+          onChange={ (event) => handleOrder(event) }
+        />
+        Crescente
+        <input
+          type="radio"
+          data-testid="column-sort-input-desc"
+          value="DESC"
+          name="ordenar"
+          onChange={ (event) => handleOrder(event) }
+        />
+        Decrescente
+      </label>
+      <button data-testid="column-sort-button" onClick={ (event) => ordenate(event) }>
+        Ordenar
+      </button>
       {showFilter && (
         multipleFilters.map((filter, i) => (
           <div key={ i }>

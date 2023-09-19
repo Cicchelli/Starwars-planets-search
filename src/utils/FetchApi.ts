@@ -1,6 +1,6 @@
 import { Planets } from '../Types';
 
-async function fetchApi(url: string) {
+export async function fetchApi(url: string) {
   try {
     const response = await fetch(url);
     const { results } = await response.json();
@@ -13,5 +13,3 @@ async function fetchApi(url: string) {
     throw error;
   }
 }
-
-export default fetchApi;

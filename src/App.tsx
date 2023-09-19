@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import './App.css';
 import Table from './Components/Table';
-import FetchApi from './utils/FetchApi';
+import { fetchApi } from './utils/FetchApi';
 import GlobalContext from './context/GlobalContext';
 import { DataFiltersType, Planets } from './Types';
 
@@ -13,7 +13,7 @@ function App() {
   useEffect(() => {
     async function getData() {
       // setLoading(true);
-      const results = await FetchApi('https://swapi.dev/api/planets');
+      const results = await fetchApi('https://swapi.dev/api/planets');
       setApiResults(results);
       setbackupReApi(results);
       setLoading(false);
@@ -57,7 +57,7 @@ function App() {
   return (
     <GlobalContext.Provider
       value={
-       { apiResults, filterResultsByText, filterResultsByValue, loading }
+       { apiResults, filterResultsByText, filterResultsByValue, loading, setApiResults }
 }
     >
       <Table />

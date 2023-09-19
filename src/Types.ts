@@ -1,4 +1,5 @@
 export interface Planets {
+  [key:string]:string | string[] | number;
   climate: string;
   created: string;
   diameter: string;
@@ -8,7 +9,7 @@ export interface Planets {
   name: string;
   orbital_period: number | string;
   population: number | string;
-  residents?: string[];
+  residents: string[];
   rotation_period: string;
   surface_water: string;
   terrain: string;
@@ -20,6 +21,7 @@ export interface GlobalStatePlanets {
   filterResultsByText: (text: string) => void, // filPlanets
   filterResultsByValue: (filters: DataFiltersType) => void // modificar filterPerFilter
   loading:boolean
+  setApiResults: React.Dispatch<React.SetStateAction<Planets[]>>
 }
 export interface DataFiltersType {
   column: string;
