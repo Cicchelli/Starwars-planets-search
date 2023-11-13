@@ -110,57 +110,7 @@ test('Teste de filtro por valor', () => {
 
 
 
-//teste depois
-// /// teste dos 60% função ordanate
-// test('handleOrder atualiza o estado corretamente para input', () => {
-//   const { getByTestId } = render(<Forms />); // Renderize o componente Forms
 
-//   const inputElement = getByTestId('input-element'); // Substitua 'input-element' pelo atributo de teste do seu elemento input
-
-//   fireEvent.change(inputElement, { target: { name: 'campo', value: 'NovoValor' } });
-
-//   // Asserções para verificar se o estado foi atualizado corretamente
-//   // Substitua formTwo e setFormTwo com o estado e a função corretos do seu componente
-//   expect(formTwo).toEqual({ campo: 'NovoValor' });
-// });
-
-// test('handleOrder atualiza o estado corretamente para select', () => {
-//   const { getByTestId } = render(<Forms />); // Renderize o componente Forms
-
-//   const selectElement = getByTestId('select-element'); // Substitua 'select-element' pelo atributo de teste do seu elemento select
-
-//   fireEvent.change(selectElement, { target: { name: 'campo', value: 'OpcaoSelecionada' } });
-
-//   // Asserções para verificar se o estado foi atualizado corretamente
-//   // Substitua formTwo e setFormTwo com o estado e a função corretos do seu componente
-//   expect(formTwo).toEqual({ campo: 'OpcaoSelecionada' });
-// });
-
-
-// test('deve ordenar os resultados em ordem crescente', () => {
- 
-//   const apiResults = [
-//     { population: '100', orbital_period: '200', diameter: '300', rotation_period: '400', surface_water: '500' },
-//     { population: '50', orbital_period: '250', diameter: '350', rotation_period: '450', surface_water: '550' },
-//     { population: '200', orbital_period: '100', diameter: '400', rotation_period: '300', surface_water: '600' },
-//   ];
-
-//   const { getByTestId, getAllByText } = render(<Forms />);
-  
-//   fireEvent.change(getByTestId('name-filter'), { target: { value: 'filter' } });
-//   fireEvent.click(getByTestId('button-filter'));
-  
-//   expect(getAllByText(/filter/i).length).toBe(apiResults.length);
-
-//   fireEvent.click(getByTestId('column-sort-button'));
-
-//   const sortedResults = getAllByText(/filter/i);
-
-//   expect(sortedResults[0]).toHaveTextContent('50');
-//   expect(sortedResults[1]).toHaveTextContent('100');
-//   expect(sortedResults[2]).toHaveTextContent('200');
-// });
-// ////
 
 // test('teste final', ()=>{
 //   render(<App />)
